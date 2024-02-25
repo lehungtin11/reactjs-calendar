@@ -1,0 +1,114 @@
+.custom-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.custom-toolbar button {
+  margin: 0 5px;
+  background-color: var(--light-blue-color);
+  color: var(--white-color);
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.custom-toolbar .view-switch {
+  display: flex;
+}
+
+.custom-toolbar .view-switch button {
+  background-color: #eee;
+}
+
+.dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 10;
+  width: 100%;
+}
+
+.dropdown-item {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+.toolbar-label {
+  color: var(--dark-blue-color) !important;
+  /* font-family: var(--font-family); */
+  font-weight: 900;
+  font-size: 2.6rem;
+}
+
+.custom-toolbar .navigateToday {
+  color: var(--light-blue-color);
+  background-color: var(--white-color);
+  border: 1px solid var(--light-blue-color);
+  min-width: 70px;
+}
+
+.custom-toolbar .navigatePrev,
+.custom-toolbar .navigateNext {
+  color: var(--light-blue-color);
+  font-size: 1.8rem;
+  background-color: transparent;
+}
+
+.custom-toolbar .navigatePrev {
+}
+
+.custom-toolbar .navigateNext {
+}
+
+.custom-toolbar .dropdown-toggle {
+  margin: 0;
+  min-width: 80px;
+}
+
+.custom-toolbar .dropdown-toggle:hover {
+  background-color: var(--light-blue-color);
+}
+
+@media (max-width: 768px) {
+  .custom-toolbar .dropdown-toggle,
+  .custom-toolbar button {
+    /* Adjust button sizes for mobile if necessary */
+  }
+  .custom-toolbar .toolbar-label {
+    border-color: transparent;
+  }
+  .custom-toolbar .toolbar-label:hover {
+    background-color: transparent;
+  }
+
+  .custom-toolbar .dropdown-item {
+    font-size: 2.6rem;
+  }
+
+  .custom-toolbar .dropdown-toggle {
+    min-width: 250px;
+    justify-content: center;
+  }
+}

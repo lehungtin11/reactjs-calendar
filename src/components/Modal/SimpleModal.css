@@ -1,0 +1,82 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(0, 0, 0, 0.1); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.modal-content {
+  position: relative;
+  min-width: 400px;
+  background-color: #fff;
+  padding: 48px 20px 20px 20px;
+  border-radius: 8px;
+  box-shadow: 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12), 0 11px 15px -7px rgba(0,0,0,.2);
+}
+
+.modal-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  cursor: move;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: left;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  padding: 4px 8px;
+  height: 28px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: rgb(241,243,244);
+  box-shadow: inset 0 1px 0 #fff;
+  overflow: hidden;
+  -webkit-transition: .3s ease opacity;
+  transition: .3s ease opacity;
+}
+
+.modal-close, .modal-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  padding: 2px;
+  color: rgb(95,99,104);
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  fill: currentColor;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.modal-more {
+
+}
+
+.modal-close:hover, .modal-more:hover {
+  background-color: rgb(232 233 234);
+}
+
+
+
+  

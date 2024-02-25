@@ -1,0 +1,128 @@
+.event-form * {
+  box-sizing: border-box ;
+}
+
+.event-form label {
+  color: rgb(95, 99, 104);
+  padding-top: 16px;
+  line-height: 24px;
+}
+
+.event-form [type="color"] {
+  width: 40px;
+  height: 30px;
+  padding: 2px;
+  border: 1px solid #ddd;
+}
+
+.event-form input {
+  width: 100%;
+  box-sizing: border-box;
+  color: rgb(60, 64, 67);
+  caret-color: rgb(25,103,210);
+  border: none;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 4px;
+  outline: none;
+  text-decoration: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.event-form input:focus:not([type="color"]) {
+  border-bottom: 1px solid rgb(25,103,210);
+  -webkit-transition: .1s linear border;
+  transition: .1s linear border;
+}
+
+.event-form button + button {
+  margin-right: 8px;
+}
+
+.event-form button {
+  /* color: rgb(25,103,210); */
+  color: rgb(95, 99, 104);
+  font-weight: 600;
+  background-color: #FFF;
+  border-radius: 4px;
+  padding: 0px 8px;
+  height: 36px;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.event-form button:hover:not([type="submit"],[type="color"]) {
+  /* color: rgb(25,103,210); */
+  /* background-color: rgb(232, 240, 254); */
+  background-color: rgb(232 233 234);
+  border: none;
+  outline: none;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.event-form button.active:not([type="submit"],[type="color"]) {
+  color: rgb(25,103,210);
+  background-color: rgb(232, 240, 254);
+}
+
+/* Event-title */
+.event-title {
+  display: flex;
+  padding: 16px 0;
+}
+
+.event-title div:first-child {
+  flex: 1;
+}
+.event-title input {
+  line-height: 24px;
+  font-size: 22px;
+}
+/* End Event-title */
+
+/* event-attributes */
+.event-attribute {
+  margin-top: 16px;
+}
+
+.event-attribute div {
+  margin-top: 8px;
+}
+
+/* end event-attributes */
+
+/* Event-type button */
+.event-type {
+  display: flex;
+  gap: 8px;
+}
+/* End Event-ype button */
+
+/* event-action */
+.event-action {
+  display: flex;
+  justify-content: right;
+  padding-top: 16px;
+}
+
+/* end event-action */
+
+/* Submit button */
+.event-form [type="submit"] {
+  background-color: rgb(26,115,232);
+  color: #FFF;
+  padding: 0 24px;
+}
+
+.event-form [type="submit"]:hover {
+  background-color: rgb(27,102,201);
+  box-shadow: 0 1px 2px 0 var(--gm-fillbutton-keyshadow-color,rgba(60,64,67,.3)),0 1px 3px 1px var(--gm-fillbutton-ambientshadow-color,rgba(60,64,67,.15));
+}
+/* End Submit button */

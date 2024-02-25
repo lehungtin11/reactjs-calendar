@@ -1,0 +1,127 @@
+.calendar-container {
+  padding: 20px;
+  height: 100vh; /* Use 100% of the viewport height */
+  width: 100vw; /* Use 100% of the viewport width */
+  display: flex;
+  flex-direction: column;
+}
+
+.react-big-calendar {
+  flex-grow: 1; /* Allows the calendar to fill the container */
+  overflow: hidden; /* Prevents overflow issues */
+}
+
+.custom-day {
+  color: #ccc;
+}
+
+/* Centering date numbers in each cell */
+.rbc-day-bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rbc-day-bg.rbc-today {
+  background-color: unset;
+}
+
+.rbc-off-range-bg {
+  background-color: transparent;
+}
+
+/* Alternatively, if the date itself is wrapped in an element */
+.rbc-date-cell {
+  color: var(--text-color);
+  padding-top: 12px;
+  text-align: center;
+  /* Additional styling to vertically center if needed */
+}
+
+.rbc-date-cell.rbc-off-range {
+  color: #ddd;
+  /* background-color: var(--white-color); */
+}
+
+.rbc-header {
+  /* border-bottom-color: transparent; */
+}
+
+.rbc-month-view {
+  border-top-color: transparent;
+}
+
+.rbc-header + .rbc-header {
+  border-left-color: transparent;
+}
+
+.rbc-now button.rbc-button-link {
+  background: linear-gradient(90deg, var(--dark-blue-color), var(--light-blue-color));
+  color: var(--calendar-title-color);
+  border-radius: 999px;
+  padding: 4px;
+}
+
+/* Styles for screens wider than 768px */
+@media (min-width: 768px) {
+  .calendar-container {
+    padding: 40px;
+  }
+}
+
+/* Styles for mobile devices */
+@media (max-width: 767px) {
+  .calendar-container {
+    padding: 10px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  /* Hide header elements that are not needed */
+  .rbc-header,
+  .rbc-toolbar {
+    /* display: none; */
+  }
+
+  .rbc-header {
+    border-bottom-color: transparent;
+  }
+
+  .rbc-month-view {
+    flex: unset;
+    height: 300px;
+    padding: 0px 60px;
+    border-color: transparent;
+  }
+
+  /* Adjust the day size and padding */
+  .rbc-day-bg,
+  .rbc-date-cell {
+    padding: 18px;
+    font-size: 16px; /* Adjust the font size as needed */
+    border-color: transparent !important;
+  }
+
+  .rbc-month-row + .rbc-month-row {
+    border-color: transparent !important;
+  }
+
+  /* Adjust selected day styling */
+  .rbc-day-bg .rbc-selected {
+    background-color: blue; /* Replace with the color you want */
+    color: white;
+  }
+
+  /* Adjust the month label */
+  .rbc-toolbar-label {
+    font-size: 18px; /* Adjust the font size as needed */
+    font-weight: bold;
+  }
+
+  /* Show minimal navigation buttons */
+  .rbc-btn-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+}
