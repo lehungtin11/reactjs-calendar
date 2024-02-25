@@ -1,0 +1,104 @@
+.custom-agenda-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: var(--white-color); /* Replace with the color from your design */
+  padding: 25px 10px 16px 10px;
+  border-top: 1px solid #ddd;
+  
+  & h2 {
+    color: var(--dark-blue-color);
+    font-weight: 900;
+  }
+  
+  & h4 {
+    color: #a4a4a4;
+    margin-top: 4px;
+    font-size: 1.6rem;
+  }
+}
+
+.view-all-button {
+  background: linear-gradient(120deg, var(--dark-blue-color), var(--light-blue-color)); /* Replace with the color from your design */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 1.4rem;
+}
+
+.custom-date-header {
+  background-color: #f0f0f0; /* Replace with the color from your design */
+  padding: 10px;
+  text-align: center;
+}
+
+.custom-event {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  // background-color: #ffe4c8; /* Replace with the color from your design */
+  padding: 8px;
+  border-radius: 10px;
+
+  &.appointment {
+    & .video {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--light-orange-color);
+      background-color: var(--light-blue-color);
+      padding: 8px;
+      font-size: 2.6rem;
+      border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.95;
+      }
+    }
+  }
+
+  & .event-bottom {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+
+    & .event-avatar {
+      display: flex;
+      & img {
+        width: 36px; // Set image width
+        height: 36px; // Set image height
+        border-radius: 50%; // Make the image round
+        object-fit: cover; // Ensure the image covers the area without stretching
+      }
+    }
+  }
+}
+
+.event-time {
+  color: var(--light-blue-color); /* Replace with the color from your design */
+  margin-right: 15px;
+  margin-top: 8px;
+}
+
+.event-details {
+  flex-grow: 1;
+}
+
+.event-action-button {
+  // background-color: #f9be81; /* Replace with the color from your design */
+  text-decoration: underline;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+  color: cornflowerblue;
+}
+
+.agenda-calendar {
+  & .rbc-agenda-date-cell,
+  & .rbc-agenda-time-cell {
+    display: none;
+  }
+
+}

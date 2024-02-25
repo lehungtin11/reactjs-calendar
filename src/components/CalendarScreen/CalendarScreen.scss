@@ -20,10 +20,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.rbc-day-bg.rbc-today {
-  background-color: unset;
+  &.rbc-today {
+    background-color: unset;
+  }
 }
 
 .rbc-off-range-bg {
@@ -36,23 +35,21 @@
   padding-top: 12px;
   text-align: center;
   /* Additional styling to vertically center if needed */
-}
-
-.rbc-date-cell.rbc-off-range {
-  color: #ddd;
-  /* background-color: var(--white-color); */
+  &.rbc-off-range {
+    color: #ddd;
+    /* background-color: var(--white-color); */
+  }
 }
 
 .rbc-header {
   /* border-bottom-color: transparent; */
+  & + & {
+    border-left-color: transparent;
+  }
 }
 
 .rbc-month-view {
   border-top-color: transparent;
-}
-
-.rbc-header + .rbc-header {
-  border-left-color: transparent;
 }
 
 .rbc-now button.rbc-button-link {
@@ -60,6 +57,30 @@
   color: var(--calendar-title-color);
   border-radius: 999px;
   padding: 4px;
+}
+
+.agenda-calendar {
+  & .rbc-header {
+    display: none;
+  }
+
+  & .rbc-agenda-view table.rbc-agenda-table {
+    border-color: transparent;
+  }
+
+  & tbody tr {
+    border-radius: 8px;
+    opacity: 1;
+    display: block;
+  }
+
+  & .mobileView {
+    display: flex;
+    margin: 16px 0px;
+    &:first-child {
+      margin: 0px 0px 16px 0px;
+    }
+  }
 }
 
 /* Styles for screens wider than 768px */
@@ -89,7 +110,7 @@
 
   .rbc-month-view {
     flex: unset;
-    height: 300px;
+    height: 226px;
     padding: 0px 60px;
     border-color: transparent;
   }
@@ -97,7 +118,7 @@
   /* Adjust the day size and padding */
   .rbc-day-bg,
   .rbc-date-cell {
-    padding: 18px;
+    padding: 8px;
     font-size: 16px; /* Adjust the font size as needed */
     border-color: transparent !important;
   }

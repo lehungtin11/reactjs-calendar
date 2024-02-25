@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BsChevronLeft, BsChevronRight, BsChevronDown } from "react-icons/bs";
 import { FaChevronLeft, FaChevronRight, FaChevronDown } from "react-icons/fa";
 import Button from '~/components/Button/Button';
-import './CustomToolBar.css';
+import './CustomToolBar.scss';
 
 const CustomToolbar = ({ label, onNavigate, view, onView, localizer, isMobile, labelFormat}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -34,7 +34,10 @@ const CustomToolbar = ({ label, onNavigate, view, onView, localizer, isMobile, l
         {isMobile ? (
           <span className="" style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <Button onClick={() => onNavigate("PREV")} className="navigatePrev"><FaChevronLeft /></Button>
-            <div className="dropdown-wrapper" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+            <div
+              className="dropdown-wrapper"
+              //onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
               <span className="toolbar-label dropdown-toggle">{view == 'month' || view == 'week' || view == 'day' ? labelFormat: label}</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu">

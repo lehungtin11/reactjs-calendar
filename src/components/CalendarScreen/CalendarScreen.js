@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -6,10 +6,17 @@ import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 
 import Appointment from "../Appointment/Appointment";
 import WebinarEvent from "../WebinarEvent/WebinarEvent";
-import "./CalendarScreen.css";
+import "./CalendarScreen.scss";
 import EventForm from "../EventForm/EventForm";
 import SimpleModal from "../Modal/SimpleModal";
 import CustomToolbar from "./CustomComponent/ToolBar/CustomToolBar";
+import CustomHeader from "./CustomComponent/Header/Header.js";
+import {
+  CustomAgendaHeader,
+  CustomDateHeader,
+  CustomEvent,
+  CustomAgendaToolbar,
+} from "./CustomComponent/Agenda/Agenda.js";
 
 const localizer = momentLocalizer(moment);
 
@@ -17,8 +24,15 @@ const CalendarScreen = () => {
   // Get today's date
   const today = new Date();
   const tomorrow = new Date(today);
+  const totomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1); // Increment the day for tomorrow
+  totomorrow.setDate(totomorrow.getDate() + 2); // Increment the day for totomorrow
+
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date()); // Added state for selected date
+  const [showAllEvents, setShowAllEvents] = useState(true);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -34,13 +48,13 @@ const CalendarScreen = () => {
       start: new Date(today.setHours(10, 0, 0, 0)), // Today at 10:00 AM
       end: new Date(today.setHours(11, 0, 0, 0)), // Today at 11:00 AM
       type: "appointment",
-      clientName: "John Doe",
+      clientName: "Johan Le",
       description: "Meeting daily",
       color: "#FFE4C8",
     },
     {
       id: 2,
-      title: "Webinar on React",
+      title: "Webinar: How to make webinar on React",
       start: new Date(tomorrow.setHours(15, 0, 0, 0)), // Tomorrow at 3:00 PM
       end: new Date(tomorrow.setHours(16, 0, 0, 0)), // Tomorrow at 4:00 PM
       type: "event",
@@ -49,22 +63,23 @@ const CalendarScreen = () => {
     },
     {
       id: 3,
-      title: "Webinar on React",
-      start: new Date(tomorrow.setHours(15, 0, 0, 0)), // Tomorrow at 3:00 PM
-      end: new Date(tomorrow.setHours(16, 0, 0, 0)), // Tomorrow at 4:00 PM
-      type: "event",
-      eventUrl: "https://example.com/webinar",
-      color: "#F9BE81",
+      title: "Interview with Johan Le",
+      start: new Date(totomorrow.setHours(9, 0, 0, 0)),
+      end: new Date(totomorrow.setHours(9, 30, 0, 0)),
+      type: "appointment",
+      clientName: "Johan Le",
+      description: "Meeting daily",
+      color: "#FFE4C8",
     },
     // More events...
   ]);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const [showForm, setShowForm] = useState(false);
 
   const handleSelectEvent = (event) => {
     console.log(event);
     setSelectedEvent(event);
-    setShowForm(true);
+    if (!isMobile) {
+      setShowForm(true);
+    }
   };
 
   const handleAddOrUpdateEvent = (event) => {
@@ -88,7 +103,6 @@ const CalendarScreen = () => {
 
   const handleSelectSlot = (slotInfo) => {
     // slotInfo contains start and end date of the clicked slot
-    console.log("select slot: ", slotInfo);
     const newEvent = {
       mode: "create",
       start: slotInfo.start,
@@ -100,20 +114,57 @@ const CalendarScreen = () => {
     setShowForm(true); // Show the form
   };
 
-  const eventStyleGetter = (event, start, end, isSelected) => {
-    var backgroundColor = event.color || "#FFE4C8"; // Default color if none is specified
-    var borderLeftColor = event.type === "appointment" ? "4px solid var(--dark-blue-color)" : "4px solid var(--dark-blue-color)"; // Check if type is appointment
-    var style = {
+  const handleDrillDown = (date, view) => {
+    // If mobile, prevent default behavior
+    if (isMobile) {
+      // Custom behavior, or simply do nothing to prevent navigating to the day view
+      // For instance, you could set state to show a custom day view modal or similar
+      setSelectedDate(date);
+      setShowAllEvents(false);
+    } else {
+      // If not mobile, allow default behavior (optional)
+      // This would navigate to the day view or you can customize as needed
+    }
+  };
+
+  // This is where you might adjust the events passed to the agenda view
+  const filteredEventsForSelectedDate = showAllEvents
+    ? events
+    : events.filter(
+        (event) =>
+          moment(event.start).isSame(selectedDate, "day") ||
+          moment(event.end).isSame(selectedDate, "day")
+      );
+
+  const toggleShowAllEvents = () => {
+    setShowAllEvents(true);
+  };
+
+  const eventStyleGetter = (event, isMobile) => {
+    let backgroundColor = event.color || "#FFE4C8"; // Default color if none is specified
+    let borderLeftColor =
+      event.type === "appointment"
+        ? "4px solid var(--dark-blue-color)"
+        : "4px solid var(--light-blue-color)"; // Check if type is appointment
+    let style = {
       backgroundColor: backgroundColor,
-      borderRadius: "4px",
-      opacity: 0.8,
       color: isColorBright(backgroundColor) ? "#0F4C81" : "#5684AE",
       border: "1px solid transparent",
       borderLeft: borderLeftColor,
-      display: "block",
     };
+    let className = "";
+
+    if (isMobile) {
+      className = "mobileView";
+      style.borderLeft =
+        event.type === "appointment"
+          ? "8px solid var(--dark-blue-color)"
+          : "8px solid var(--light-blue-color)";
+    }
+
     return {
       style: style,
+      className: className,
     };
   };
 
@@ -131,70 +182,62 @@ const CalendarScreen = () => {
     return luminance > 0.5; // Bright colors will have luminance greater than 0.5
   };
 
-  const CustomHeader = ({ date, localizer, isMobile, view }) => {
-    let result = <span></span>;
-    let formatString = "";
-    switch (view) {
-      case "month":
-        formatString = isMobile ? "MMM YYYY" : "MMMM YYYY";
-        result = <span>{localizer.format(date, formatString)}</span>;
-        break;
-      case "week":
-        const startOfWeek = moment(date).startOf("week");
-        const endOfWeek = moment(date).endOf("week");
-        formatString = isMobile ? "MMM DD" : "MMMM DD";
-        result = (
-          <span>{`${startOfWeek.format(formatString)} - ${endOfWeek.format(
-            formatString
-          )}`}</span>
-        );
-        break;
-      case "day":
-        formatString = isMobile ? "ddd MMM DD" : "ddd MMM DD";
-        result = <span>{localizer.format(date, formatString)}</span>;
-        break;
-    }
-    return result;
-  };
-
   // CustomDay.js
   const CustomDay = ({ date }) => {
-    // setHeaderDate(prev => ([ ...prev, moment(date).format("ddd")]));
     return <div className="custom-day">{moment(date).format("ddd")}</div>;
   };
 
-  const messages = {
-    week: "Week",
-    work_week: "Work week",
-    day: "Day",
-    month: "Month",
-    previous: <BsChevronLeft />,
-    next: <BsChevronRight />,
-    today: "Today",
-    agenda: "Agenda",
+  const props = {
+    events,
+    localizer,
+    popup: true,
+    selectable: true,
+    defaultDate: selectedDate,
+    defaultView: "month",
+    startAccessor: "start",
+    endAccessor: "end",
+    className: "react-big-calendar",
+    onSelectSlot: handleSelectSlot,
+    onSelectEvent: handleSelectEvent,
+    eventPropGetter: (prop) => eventStyleGetter(prop, isMobile),
+    messages: {
+      week: "Week",
+      day: "Day",
+      month: "Month",
+      previous: <BsChevronLeft />,
+      next: <BsChevronRight />,
+      today: "Today",
+      agenda: "Agenda",
 
-    showMore: (total) => `+${total} more`,
-  }
+      showMore: (total) => `+${total} more`,
+    },
+    components: {
+      event: ({ event }) => {
+        if (event.type === "appointment") {
+          return <Appointment event={event} />;
+        } else if (event.type === "event") {
+          return <WebinarEvent event={event} />;
+        }
+        return <div>Unknown event type</div>;
+      },
+      month: {
+        header: CustomDay,
+      },
+      toolbar: (props) => (
+        <CustomToolbar
+          {...props}
+          isMobile={isMobile}
+          labelFormat={<CustomHeader {...props} isMobile={isMobile} />}
+        />
+      ),
+    },
+    style: isMobile
+      ? { height: "auto", maxHeight: "36vh" }
+      : { height: "auto", minHeight: "100vh" },
+  };
 
-  const components = {
-    event: ({ event }) => {
-      if (event.type === "appointment") {
-        return <Appointment event={event} />;
-      } else if (event.type === "event") {
-        return <WebinarEvent event={event} />;
-      }
-      return <div>Unknown event type</div>;
-    },
-    month: {
-      header: CustomDay
-    },
-    toolbar: (props) => (
-      <CustomToolbar
-        {...props}
-        isMobile={isMobile}
-        labelFormat={<CustomHeader {...props} isMobile={isMobile} />}
-      />
-    ),
+  if (isMobile) {
+    props.onDrillDown = handleDrillDown;
   }
 
   return (
@@ -206,33 +249,29 @@ const CalendarScreen = () => {
           onCancel={() => setShowForm(false)}
         />
       </SimpleModal>
-      <Calendar
-        className="react-big-calendar"
-        localizer={localizer}
-        events={events}
-        onSelectEvent={handleSelectEvent}
-        onSelectSlot={handleSelectSlot}
-        selectable={true}
-        startAccessor="start"
-        endAccessor="end"
-        style={isMobile ? { height: "auto", minHeight: "40vh" } : { height: "auto", minHeight: "100vh" }}
-        defaultDate={new Date()}
-        defaultView="month"
-        messages={messages}
-        components={components}
-        popup
-        eventPropGetter={eventStyleGetter}
-      />
-      {isMobile && <Calendar
-        localizer={localizer}
-        events={events}
-        defaultView="agenda"
-        toolbar={false} // Disable the toolbar for this view
-        startAccessor="start"
-        endAccessor="end"
-        eventPropGetter={eventStyleGetter}
-        style={{ height: 300 }} // Adjust height accordingly
-      />}
+      <Calendar {...props} />
+      {isMobile && (
+        <Calendar
+          {...props}
+          className="agenda-calendar"
+          defaultView="agenda"
+          components={{
+            agenda: {
+              header: CustomAgendaHeader,
+              event: CustomEvent,
+            },
+            toolbar: (prop) => (
+              <CustomAgendaToolbar
+                onViewAllClick={toggleShowAllEvents}
+                {...prop}
+              />
+            ),
+          }}
+          events={filteredEventsForSelectedDate}
+          // toolbar={false} // Disable the toolbar for this view
+          style={{ height: "55vh", padding: "12px" }} // Adjust height accordingly
+        />
+      )}
     </div>
   );
 };

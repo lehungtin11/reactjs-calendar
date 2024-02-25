@@ -1,0 +1,32 @@
+.btn {
+  color: rgb(95, 99, 104);
+  font-weight: 600;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 0px 8px;
+  height: 36px;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+
+  .btn + .btn {
+    margin-right: 8px;
+  }
+
+  &:hover:not([type="submit"], [type="color"]) {
+    /* color: rgb(25,103,210); */
+    /* background-color: rgb(232, 240, 254); */
+    /* background-color: rgb(232 233 234); */
+    background-color: #f9f9f9;
+  }
+  
+  & span:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+}
