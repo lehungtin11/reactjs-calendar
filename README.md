@@ -1,5 +1,7 @@
 # [ReactJS - Calendar]: ReactJS with react-big-calendar Integration
 
+## Publish: https://event-planner-app.onrender.com
+
 ## Introduction
 
 Welcome to [ReactJS - Calendar]! This project demonstrates the powerful combination of ReactJS with `react-big-calendar`, designed to create dynamic and responsive calendar applications. Whether you're managing personal events, company meetings, or community gatherings, [ReactJS - Calendar] offers a sleek, user-friendly interface to keep track of your schedules efficiently.
@@ -20,5 +22,10 @@ git clone https://github.com/yourusername/project-name.git
 cd project-name
 npm install
 npm start
+```
 
 This will clone the repo, install necessary dependencies, and start the development server at http://localhost:3000.
+
+![image](https://github.com/lehungtin11/reactjs-calendar/assets/104882851/b8198098-0c75-4916-b65b-d7e020814958)
+
+![image](https://github.com/lehungtin11/reactjs-calendar/assets/104882851/3c12bba6-8a1d-4366-b3b2-cef11a678d7d)
